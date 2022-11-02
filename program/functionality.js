@@ -10,7 +10,6 @@ function randomNumberSlicer(string) {
 
 function randomNumbersConcatenation(string) {
     string = randomNumberSlicer() + randomNumberSlicer()
-    
     return string
 }
 
@@ -23,27 +22,29 @@ function getUrl() {
 
 
 function protocolVerification(string) {
-    string = 'https://www.youtube.com/watch?v=SlYcnGW0NEg&list=RDSlYcnGW0NEg&start_radio=1&ab_channel=TitoSakuraba'
     let protocolVerification = string.startsWith("http://") || string.startsWith("https://") || string.startsWith("ftp://")
     return protocolVerification
 }
 
-function protocolMender(){
-    let newurl
-    if (!protocolVerification()){
-        newurl = "http://"+protocolVerification()
-       
-        return newurl
-       
-    } else
-    console.log('the Url submitted has the protocol')
-    return newurl
+function protocolMender() {
+    let url = getUrl()
+    if (url) {
+        if (!protocolVerification(url)) {
+            let newurl = "http://" + url
+            console.log('added http:// to the link')
+            return newurl
+        } else
+            console.log('the Url submitted has the protocol')
+        return url
+    }
+    else alert('add a url to check')
+    
 
 }
 
 
 
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender }
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl }
 
 
 

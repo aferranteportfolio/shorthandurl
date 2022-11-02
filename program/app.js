@@ -1,7 +1,8 @@
-import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender} from '../program/functionality.js'
+import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl} from '../program/functionality.js'
 
 let button = document.getElementById('button')
+
 button.addEventListener('click', ()=> {
-    let test = randomNumbersConcatenation()
+    // select the input element and get its value
     protocolMender()
 })
