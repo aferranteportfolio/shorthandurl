@@ -1,10 +1,10 @@
 const express = require('express')
-
+const path = require('path')
 const app = express()
 const PORT = 8943
 
 app.get('/home', (req, res) => {
-    res.status(200).json('welcome')
+    res.sendFile(path.join(__dirname, '../HTML/index.html'))
 })
 
 
