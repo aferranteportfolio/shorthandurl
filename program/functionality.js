@@ -48,11 +48,28 @@ function genhash(){    if (window.location.hash == ''){        window.location.h
 
 
 
+//Database API section
+
+function addEntry(longUrl) {
+ let jsonDataToBePushed = `${longUrl}  ={
+        "shortened" : ${randomNumbersConcatenation()},
+        "lastAccessedAt" : ${newDateGenerator(Date)}
+    }`
+    console.log(jsonDataToBePushed)
+    urlDataBase.push(jsonDataToBePushed)
+}
+
+function newDateGenerator(Date) {
+    let date = new Date()
+    return date
+}
 
 
 
 
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl,  genhash}
+
+
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl,  genhash, addEntry , newDateGenerator}
 
 
 
