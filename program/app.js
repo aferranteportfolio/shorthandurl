@@ -4,5 +4,6 @@ let button = document.getElementById('button')
 
 button.addEventListener('click', ()=> {
     // select the input element and get its value
-    protocolMender()
+    protocolMender(getUrl())
+    console.log(window.location)
 })

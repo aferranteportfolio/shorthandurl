@@ -26,29 +26,28 @@ function protocolVerification(string) {
     return protocolVerification
 }
 
-function protocolMender() {
-    let url = getUrl()
-    if (url) {
-        if (!protocolVerification(url)) {
-            let newurl = "http://" + url
-            console.log('added http:// to the link')
+function protocolMender(string) {
+    if (string) {
+        if (!protocolVerification(string)) {
+            let newurl = "http://" + string
+            console.log(`added http:// to the link, ${newurl}`)
             return newurl
         } else
             console.log('the Url submitted has the protocol')
-        return url
+        return string
     }
     else alert('add a url to check')
-    
-
 }
 
-
-
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl }
-
+function genhash(){    if (window.location.hash == ''){        window.location.hash = getrandom();    }}
 
 
 
 
-// function geturl(){     var url = document.getElementById(“urlinput”).value;
-// if(!protocol_ok){         newurl = “http://”+url;         return newurl;     }else{         return url;     }
+
+
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl,  genhash}
+
+
+
+
