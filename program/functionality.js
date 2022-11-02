@@ -1,5 +1,5 @@
 function getRandom() {
-    let randomStringNumber = Math.random().toString(32)
+    let randomStringNumber = Math.random().toString(36)
     return randomStringNumber
 }
 
@@ -9,9 +9,12 @@ function randomNumberSlicer(string) {
 }
 
 function randomNumbersConcatenation(string) {
-    string = randomNumberSlicer() + randomNumberSlicer()
+    string = 'http://localhost:8943/' + randomNumberSlicer() + randomNumberSlicer()
     return string
 }
+
+
+
 
 
 function getUrl() {
@@ -40,6 +43,9 @@ function protocolMender(string) {
 }
 
 function genhash(){    if (window.location.hash == ''){        window.location.hash = getrandom();    }}
+
+
+
 
 
 
