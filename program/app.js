@@ -7,7 +7,7 @@ button.addEventListener('click', ()=> {
     addEntry(inMemoryLongUrl)
 })
 
-console.log(urlDataBase)
+console.log(urlDataBase.firstLongUrl)
 
 
 
