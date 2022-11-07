@@ -3,8 +3,7 @@ function getRandom() {
     return randomStringNumber
 }
 
-function randomNumberSlicer(string) {
-    string = getRandom()
+function randomNumberSlicer(string = getRandom()) {
     return string.substring(2, 5)
 }
 
@@ -24,25 +23,24 @@ function getUrl() {
 
 
 
-function protocolVerification(string) {
-    let protocolVerification = string.startsWith("http://") || string.startsWith("https://") || string.startsWith("ftp://")
-    return protocolVerification
+function protocolVerification(UrlString) {
+    return UrlString.startsWith("http://") || UrlString.startsWith("https://") || UrlString.startsWith("ftp://")
 }
 
-function protocolMender(string) {
-    if (string) {
-        if (!protocolVerification(string)) {
-            let newurl = "http://" + string
+function protocolMender(UrlString) {
+    if (UrlString) {
+        if (!protocolVerification(UrlString)) {
+            let newurl = "http://" + UrlString
             console.log(`added http:// to the link, ${newurl}`)
             return newurl
         } else
             console.log('the Url submitted has the protocol')
-        return string
+        return UrlString
     }
     else alert('add a url to check')
 }
 
-function genhash(){    if (window.location.hash == ''){        window.location.hash = getrandom();    }}
+function genhash() { if (window.location.hash == '') { window.location.hash = getrandom(); } }
 
 //- The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds
 // - The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds
@@ -53,24 +51,34 @@ function genhash(){    if (window.location.hash == ''){        window.location.h
 //Database API section
 
 function addEntry(longUrl) {
-let entry = {
-    "shortened" : randomNumbersConcatenation(),
-        "lastAccessedAt" : newDateGenerator(Date)
-}
-urlDataBase[longUrl] = entry
-
-    console.log(urlDataBase)
-}
-
-function newDateGenerator(Date) {
-    let date = new Date()
-    return date
+    let entry = {
+        "shortened": randomNumbersConcatenation(),
+        "lastAccessedAt": new Date().getMilliseconds
+    }
+    urlDataBase[longUrl] = entry
 }
 
 // Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
 function DatabasePutRequest(jsonBodyLongUrlObjectKey) {
-    
+    if (urlDataBase.jsonBodyLongUrlObjectKey) {
+        return urlDataBase.jsonBodyLongUrlObjectKey.shortened && urlDataBase.jsonBodyLongUrlObjectKey.lastAccessedAt
+    } else addEntry(jsonBodyLongUrlObjectKey)
 }
+
+
+function expirationEntryChecker(date) {
+    for (const key in urlDataBase) {
+        if (Object.hasOwnProperty.call(urlDataBase, key)) {
+            const element = urlDataBase[key];
+            if(Date.now()-element.lastAccessedAt) {
+                delete urlDataBase[key]
+            }
+            
+        }
+    }
+}
+
+
 //   - 1.- Check if long url exists in-memory map by doing the following:
 //     - a.- If exist, return <SHORTENED URL VALUE> and update lastAccessedAt with current time 
 //     - b.- Else, create a new record:
@@ -89,7 +97,7 @@ function DatabasePutRequest(jsonBodyLongUrlObjectKey) {
 
 
 
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl,  genhash, addEntry , newDateGenerator}
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, genhash, addEntry, expirationEntryChecker }
 
 
 
