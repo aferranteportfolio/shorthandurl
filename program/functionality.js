@@ -32,12 +32,13 @@ function protocolMender(UrlString) {
     else alert('add a url to check')
 }
 function genhash() { if (window.location.hash == '') { window.location.hash = getrandom(); } }
-function addEntry(longUrl) {
+function addEntry(longUrl,res) {
     let entry = {
         "shortened": randomNumbersConcatenation(),
         "lastAccessedAt": Date.now()
     }
     urlDataBase[longUrl] = entry
+    res.sendStatus(201)
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,9 +51,9 @@ function addEntry(longUrl) {
 
 
 //Database API section
-function urlPostAPI(jsonBodyLongUrlObjectKey) {
-    if ( urlPostVerificator(jsonBodyLongUrlObjectKey) ){
-    } addEntry(jsonBodyLongUrlObjectKey)
+function urlPostAPI(jsonBodyLongUrlObjectKey,res) {
+    if ( urlPostVerificator(jsonBodyLongUrlObjectKey,res) ){ return
+    } addEntry(jsonBodyLongUrlObjectKey,res) 
 }
 
 
@@ -60,10 +61,10 @@ function urlPostAPI(jsonBodyLongUrlObjectKey) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Functions responsable for maintaning the database
-function urlPostVerificator(jsonBodyLongUrlObjectKey){
+function urlPostVerificator(jsonBodyLongUrlObjectKey,res){
     if (Object.hasOwnProperty.call(urlDataBase, jsonBodyLongUrlObjectKey)) {
-        console.log(`Entry already exist`)
-        return urlDataBase[jsonBodyLongUrlObjectKey].shortened && urlDataBase[jsonBodyLongUrlObjectKey].lastAccessedAt
+        urlDataBase[jsonBodyLongUrlObjectKey].lastAccessedAt = Date.now()
+        return  res.end(JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened));
     }
 } 
 function expirationEntryChecker(date) {

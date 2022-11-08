@@ -29,15 +29,7 @@ function jsonData(req) {
 
 app.put('/shorten', (req, res)=>{
     let jsonRecived = jsonData(req)
-        // console.log(memoryStorageJsonData)
-    // let inMemoryLongUrl = protocolMender(memoryStorageJsonData)
-    // urlPostAPI(inMemoryLongUrl)
-    // expirationEntryChecker()
-
-    console.log(jsonRecived)
-
-    res.send(`this is what you sent ${req.body.longUrl}`)
-
+    urlPostAPI(jsonRecived,res)
 })
 
 
