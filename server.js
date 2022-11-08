@@ -1,31 +1,46 @@
 import  express  from 'express'
 import path from 'path'
 import { json } from 'stream/consumers'
+import bodyParser from 'body-parser'
 const app = express()
 const PORT = 8943
 const __dirname = path.resolve()
+const jsonParser = bodyParser.json()
 
 import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from './program/functionality.js'
-// import { urlDataBase } from './program/database.js'
+import { urlDataBase } from './program/database.js'
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 
 app.use(express.static(path.join(__dirname, "program")))
 
-
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '/program/index.html'))
 })
-
+function jsonData(req) {
+    let jsonObjectCreator = {
+        longUrl : req.body.longUrl
+    }
+    return jsonObjectCreator
+}
 
 
 app.put('/shorten', (req, res)=>{
-    let memoryStorageJsonData = jsonData(req)
-    let inMemoryLongUrl = protocolMender(memoryStorageJsonData)
-    urlPostAPI(inMemoryLongUrl)
-    expirationEntryChecker()
+    let jsonRecived = jsonData(req)
+        // console.log(memoryStorageJsonData)
+    // let inMemoryLongUrl = protocolMender(memoryStorageJsonData)
+    // urlPostAPI(inMemoryLongUrl)
+    // expirationEntryChecker()
 
-    res.sendStatus(204)
+    console.log(jsonRecived)
+
+    res.send(`this is what you sent ${req.body.longUrl}`)
+
 })
+
+
 
 
 // Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
