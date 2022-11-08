@@ -5,17 +5,17 @@
 let urlDataBase = {
     firstLongUrl: {
         shortened: "123123123123123",
-        lastAccessedAt: "<TIME URL LAST ACCESSED>"
+        lastAccessedAt: 1667930868332
     },
 
 
 
     secondLongUrl: {
         shortened: "<SHORTENED URL VALUE>",
-        lastAccessedAt: "<TIME URL LAST ACCESSED>"
+        lastAccessedAt: 1667930868300
     }
 }
 
-
+export {urlDataBase}
                                    
 
