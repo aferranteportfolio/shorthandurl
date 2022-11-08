@@ -32,14 +32,14 @@ function protocolMender(UrlString) {
     else alert('add a url to check')
 }
 function genhash() { if (window.location.hash == '') { window.location.hash = getrandom(); } }
-function addEntry(longUrl,res) {
+function addEntry(longUrl) {
     let entry = {
         "shortened": randomNumbersConcatenation(),
         "lastAccessedAt": Date.now()
     }
     urlDataBase[longUrl] = entry
-    res.sendStatus(201)
-}
+} 
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,20 +51,22 @@ function addEntry(longUrl,res) {
 
 
 //Database API section
-function urlPostAPI(jsonBodyLongUrlObjectKey,res) {
-    if ( urlPostVerificator(jsonBodyLongUrlObjectKey,res) ){ return
-    } addEntry(jsonBodyLongUrlObjectKey,res) 
-}
+function urlPostAPI(jsonBodyLongUrlObjectKey) {
+    if ( urlPostVerificator(jsonBodyLongUrlObjectKey) ){ return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
+    } else {
+        addEntry(jsonBodyLongUrlObjectKey)
+        return true
+}}
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Functions responsable for maintaning the database
-function urlPostVerificator(jsonBodyLongUrlObjectKey,res){
+function urlPostVerificator(jsonBodyLongUrlObjectKey){
     if (Object.hasOwnProperty.call(urlDataBase, jsonBodyLongUrlObjectKey)) {
         urlDataBase[jsonBodyLongUrlObjectKey].lastAccessedAt = Date.now()
-        return  res.end(JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened));
+        return  JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
     }
 } 
 function expirationEntryChecker(date) {
@@ -93,10 +95,7 @@ function expirationEntryChecker(date) {
 
 
 
-// - Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
-//   - 1.- Check if shortened version exists
-//     - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
-//     - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
+
 
 
 

@@ -2,10 +2,14 @@ import  express  from 'express'
 import path from 'path'
 import { json } from 'stream/consumers'
 import bodyParser from 'body-parser'
+import  url  from 'url'
 const app = express()
 const PORT = 8943
 const __dirname = path.resolve()
 const jsonParser = bodyParser.json()
+
+
+
 
 import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from './program/functionality.js'
 import { urlDataBase } from './program/database.js'
@@ -16,9 +20,10 @@ app.use(bodyParser.json())
 
 app.use(express.static(path.join(__dirname, "program")))
 
-app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, '/program/index.html'))
-})
+
+
+
+
 function jsonData(req) {
     let jsonObjectCreator = {
         longUrl : req.body.longUrl
@@ -27,15 +32,38 @@ function jsonData(req) {
 }
 
 
-app.put('/shorten', (req, res)=>{
-    let jsonRecived = jsonData(req)
-    urlPostAPI(jsonRecived,res)
+
+
+
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, '/program/index.html'))
 })
 
 
 
+// - Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
+//   - 1.- Check if shortened version exists
+//     - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
+//     - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
 
-// Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
+app.get('/shortUrl', function(req, res){
+    const id = req.query;
+    console.log(JSON.stringify(id))
+    res.sendStatus(204)
+  });
+
+
+
+
+app.put('/shorten', (req, res)=>{
+    let jsonRecived = jsonData(req)
+    let result = urlPostAPI(jsonRecived)
+    if (result === true){return res.sendStatus(201)}
+    else return res.send(result)
+})
+
+
+
 
 
 
