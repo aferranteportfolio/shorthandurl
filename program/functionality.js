@@ -51,16 +51,20 @@ function addEntry(longUrl) {
 
 //Database API section
 
-
-
-// Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
-function DatabasePutRequest(jsonBodyLongUrlObjectKey) {
-    debugger
+function urlPostVerificator(jsonBodyLongUrlObjectKey){
     if (Object.hasOwnProperty.call(urlDataBase, jsonBodyLongUrlObjectKey)) {
-        return urlDataBase.jsonBodyLongUrlObjectKey.shortened && urlDataBase.jsonBodyLongUrlObjectKey.lastAccessedAt
-    } else addEntry(jsonBodyLongUrlObjectKey)
+        console.log(`Entry already exist`)
+        return urlDataBase[jsonBodyLongUrlObjectKey].shortened && urlDataBase[jsonBodyLongUrlObjectKey].lastAccessedAt
+    }
 }
 
+
+
+            
+function urlPostAPI(jsonBodyLongUrlObjectKey) {
+    if ( urlPostVerificator(jsonBodyLongUrlObjectKey) ){
+    } addEntry(jsonBodyLongUrlObjectKey)
+}
 
 function expirationEntryChecker(date) {
     for (const key in urlDataBase) {
@@ -75,14 +79,14 @@ function expirationEntryChecker(date) {
 
 
 //   - 1.- Check if long url exists in-memory map by doing the following:
-//     - a.- If exist, return <SHORTENED URL VALUE> and update lastAccessedAt with current time    ======> DONE FUNC DatabasePutRequest
-//     - b.- Else, create a new record:                                                             ======> DONE FUNC DatabasePutRequest
+//     - a.- If exist, return <SHORTENED URL VALUE> and update lastAccessedAt with current time    ======> DONE FUNC urlPostVerificator
+//     - b.- Else, create a new record:                                                             ======> DONE FUNC addEntry
 //       - I.- <SHORTENED URL VALUE> is random 6-letter base64 enconded string                      ======> DONE FUNC DatabasePutRequest
-//       - II.- lastAccessedAt is the current timestamp
+//       - II.- lastAccessedAt is the current timestamp                                             
 //       - III.- <LONG URL KEY> is the long url supplied as input to the endpoint
 //     - c.- Scan all entries in the in-memory map and delete the entries that are more than 30 seconds old     ===> DONE  FUNC expirationEntryChecker
 
-
+// Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
 
 
 // - Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
@@ -95,7 +99,7 @@ function expirationEntryChecker(date) {
 
 
 
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, genhash, addEntry, expirationEntryChecker, DatabasePutRequest }
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, genhash, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator }
 
 
 
