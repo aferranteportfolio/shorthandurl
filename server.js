@@ -1,7 +1,13 @@
-const express = require('express')
-const path = require('path')
+import  express  from 'express'
+import path from 'path'
+import { json } from 'stream/consumers'
 const app = express()
 const PORT = 8943
+const __dirname = path.resolve()
+
+import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from './program/functionality.js'
+// import { urlDataBase } from './program/database.js'
+
 
 app.use(express.static(path.join(__dirname, "program")))
 
@@ -9,6 +15,22 @@ app.use(express.static(path.join(__dirname, "program")))
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '/program/index.html'))
 })
+
+
+
+app.put('/shorten', (req, res)=>{
+    let memoryStorageJsonData = jsonData(req)
+    let inMemoryLongUrl = protocolMender(memoryStorageJsonData)
+    urlPostAPI(inMemoryLongUrl)
+    expirationEntryChecker()
+
+    res.sendStatus(204)
+})
+
+
+// Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
+
+
 
 // - Frontend will display a single input box, the placeholder is 'Insert your long url here...'
 // - Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text
