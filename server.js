@@ -12,7 +12,7 @@ const jsonParser = bodyParser.json()
 
 
 
-import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker } from './program/functionality.js'
+import {  randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker } from './program/functionality.js'
 import { urlDataBase } from './program/database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -23,9 +23,6 @@ app.use('urlDataBase', express.static(__dirname + './program/urlDataBase.js'))
 app.use(express.static(path.join(__dirname, "program")))
 
 
-
-
-
 function jsonData(req) {
     let jsonObjectCreator = {
         longUrl : req.body.longUrl
@@ -33,16 +30,9 @@ function jsonData(req) {
     return jsonObjectCreator
 }
 
-
-
-
-
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '/program/index.html'))
 })
-
-
-
 
 
 app.get('/shortUrl/:id', function(req, res){
@@ -51,21 +41,12 @@ app.get('/shortUrl/:id', function(req, res){
   });
 
 
-
-
-
-
 app.put('/shorten', (req, res)=>{
     let jsonRecived = jsonData(req)
     let result = urlPostAPI(jsonRecived)
     if (result === true){return res.sendStatus(201)}
     else return res.send(result)
 })
-
-
-
-
-
 
 // - Frontend will display a single input box, the placeholder is 'Insert your long url here...'
 // - Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text

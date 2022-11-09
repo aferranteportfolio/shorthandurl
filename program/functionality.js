@@ -46,13 +46,6 @@ function addEntry(longUrl) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//- The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds 
-// - The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds
-// - The not found page, must be shown if the user attempts to access an unknown/expired shortened url
-
-
-
-//Database API section
 function urlPostAPI(jsonBodyLongUrlObjectKey) {
     if (urlPostVerificator(jsonBodyLongUrlObjectKey)) {
         return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
@@ -66,10 +59,9 @@ function urlGetAPI(shortUrlQueryReq) {
     for (const key in urlDataBase) {
         if (Object.hasOwnProperty.call(urlDataBase, key)) {
             const element = urlDataBase[key];
-            console.log(element.shortened)
             if (element.shortened === shortUrlQueryReq) {
                 element.lastAccessedAt = Date.now()
-                return element
+                return  key
             }
         }
     }

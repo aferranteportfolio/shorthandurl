@@ -3,7 +3,7 @@
 
 //Database section
 let urlDataBase = {
-    'https://www.google.com/': {
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley': {
         shortened: "3erl45",
         lastAccessedAt: 1667930868332222222
     },
