@@ -3,6 +3,7 @@ import path from 'path'
 import { json } from 'stream/consumers'
 import bodyParser from 'body-parser'
 import  url  from 'url'
+
 const app = express()
 const PORT = 8943
 const __dirname = path.resolve()
@@ -11,7 +12,7 @@ const jsonParser = bodyParser.json()
 
 
 
-import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from './program/functionality.js'
+import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker} from './program/functionality.js'
 import { urlDataBase } from './program/database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -46,11 +47,12 @@ app.get('/home', (req, res) => {
 //     - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
 //     - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
 
-app.get('/shortUrl', function(req, res){
-    const id = req.query;
-    console.log(JSON.stringify(id))
-    res.sendStatus(204)
+app.get('/shortUrl/:id', function(req, res){
+    const id = req.params.id;
+    urlGetChecker(id, res)    
   });
+
+
 
 
 

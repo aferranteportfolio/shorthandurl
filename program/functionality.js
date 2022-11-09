@@ -38,13 +38,13 @@ function addEntry(longUrl) {
         "lastAccessedAt": Date.now()
     }
     urlDataBase[longUrl] = entry
-} 
+}
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//- The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds
+//- The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds 
 // - The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds
 // - The not found page, must be shown if the user attempts to access an unknown/expired shortened url
 
@@ -52,23 +52,54 @@ function addEntry(longUrl) {
 
 //Database API section
 function urlPostAPI(jsonBodyLongUrlObjectKey) {
-    if ( urlPostVerificator(jsonBodyLongUrlObjectKey) ){ return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
+    if (urlPostVerificator(jsonBodyLongUrlObjectKey)) {
+        return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
     } else {
         addEntry(jsonBodyLongUrlObjectKey)
         return true
-}}
+    }
+}
 
+
+// Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
+// - 1.- Check if shortened version exists
+//   - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
+//   - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
+
+
+function urlGetAPI(shortUrlQueryReq) {
+    for (const key in urlDataBase) {
+        if (Object.hasOwnProperty.call(urlDataBase, key)) {
+            const element = urlDataBase[key];
+            console.log(element.shortened)
+            if (element.shortened === shortUrlQueryReq) {
+                element.lastAccessedAt = Date.now()
+                return element
+            }
+        }
+    }
+}
+function urlGetChecker(shortUrlQueryReq, res) {
+    let longUrlAssigned = urlGetAPI(shortUrlQueryReq)
+    if (longUrlAssigned) {
+        res.redirect('https://www.google.com/')
+    }
+    else {
+        res.redirect(('/home'))
+    }
+}
+// `${longUrlAssigned}`
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Functions responsable for maintaning the database
-function urlPostVerificator(jsonBodyLongUrlObjectKey){
+function urlPostVerificator(jsonBodyLongUrlObjectKey) {
     if (Object.hasOwnProperty.call(urlDataBase, jsonBodyLongUrlObjectKey)) {
         urlDataBase[jsonBodyLongUrlObjectKey].lastAccessedAt = Date.now()
-        return  JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
+        return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
     }
-} 
+}
 function expirationEntryChecker(date) {
     for (const key in urlDataBase) {
         if (Object.hasOwnProperty.call(urlDataBase, key)) {
@@ -102,7 +133,7 @@ function expirationEntryChecker(date) {
 
 
 
-export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, genhash, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator }
+export { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, genhash, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker }
 
 
 

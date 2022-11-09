@@ -3,9 +3,9 @@
 
 //Database section
 let urlDataBase = {
-    firstLongUrl: {
-        shortened: "123123123123123",
-        lastAccessedAt: 1667930868332
+    'https://www.google.com/': {
+        shortened: "3erl45",
+        lastAccessedAt: 1667930868332222222
     },
 
 
