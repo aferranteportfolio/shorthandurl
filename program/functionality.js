@@ -1,5 +1,7 @@
 import { urlDataBase } from './database.js'
 
+
+
 /// Functions below are responsable for newEntrys into the DB
 function getRandom() {
     let randomStringNumber = Math.random().toString(36)
@@ -9,7 +11,7 @@ function randomNumberSlicer(string = getRandom()) {
     return string.substring(2, 5)
 }
 function randomNumbersConcatenation(string) {
-    string = 'http://localhost:8943/' + randomNumberSlicer() + randomNumberSlicer()
+    string =randomNumberSlicer() + randomNumberSlicer()
     return string
 }
 function getUrl() {
@@ -60,13 +62,6 @@ function urlPostAPI(jsonBodyLongUrlObjectKey) {
     }
 }
 
-
-// Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
-// - 1.- Check if shortened version exists
-//   - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
-//   - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
-
-
 function urlGetAPI(shortUrlQueryReq) {
     for (const key in urlDataBase) {
         if (Object.hasOwnProperty.call(urlDataBase, key)) {
@@ -79,16 +74,17 @@ function urlGetAPI(shortUrlQueryReq) {
         }
     }
 }
+
 function urlGetChecker(shortUrlQueryReq, res) {
     let longUrlAssigned = urlGetAPI(shortUrlQueryReq)
     if (longUrlAssigned) {
-        res.redirect('https://www.google.com/')
+        res.redirect(longUrlAssigned)
     }
     else {
         res.redirect(('/home'))
     }
 }
-// `${longUrlAssigned}`
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,13 +107,15 @@ function expirationEntryChecker(date) {
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//Front end Jquery Funcionts
 
-
-
+// function notFoundError(){
+//     $('body').append($('h1'));
+//     $('h1').html('ERROR')
+// }
 
 
 

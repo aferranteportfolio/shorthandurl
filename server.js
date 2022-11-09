@@ -2,7 +2,7 @@ import  express  from 'express'
 import path from 'path'
 import { json } from 'stream/consumers'
 import bodyParser from 'body-parser'
-import  url  from 'url'
+import jQuery from 'jquery'
 
 const app = express()
 const PORT = 8943
@@ -12,12 +12,13 @@ const jsonParser = bodyParser.json()
 
 
 
-import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker} from './program/functionality.js'
+import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker } from './program/functionality.js'
 import { urlDataBase } from './program/database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('urlDataBase', express.static(__dirname + './program/urlDataBase.js'))
 
 app.use(express.static(path.join(__dirname, "program")))
 
@@ -42,10 +43,7 @@ app.get('/home', (req, res) => {
 
 
 
-// - Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
-//   - 1.- Check if shortened version exists
-//     - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
-//     - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
+
 
 app.get('/shortUrl/:id', function(req, res){
     const id = req.params.id;
