@@ -53,6 +53,11 @@ app.get('/HeMan', (req,res)=>{
     res.sendFile( __dirname + '/program/giphy.webp')
 })
 
+app.get('/I_DO_NOT_EXIST', (req,res)=>{
+    
+    res.sendFile( __dirname + '/program/error404.webp')
+})
+
 // - Frontend will display a single input box, the placeholder is 'Insert your long url here...'
 // - Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text
 // - Frontend will use bootstrap
