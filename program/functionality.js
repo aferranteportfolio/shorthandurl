@@ -34,6 +34,7 @@ function protocolMender(UrlString) {
     else alert('add a url to check')
 }
 function genhash() { if (window.location.hash == '') { window.location.hash = getrandom(); } }
+
 function addEntry(longUrl) {
     let entry = {
         "shortened": randomNumbersConcatenation(),
@@ -50,8 +51,8 @@ function urlPostAPI(jsonBodyLongUrlObjectKey) {
     if (urlPostVerificator(jsonBodyLongUrlObjectKey)) {
         return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
     } else {
-        addEntry(jsonBodyLongUrlObjectKey)
-        return true
+
+        return addEntry(jsonBodyLongUrlObjectKey)
     }
 }
 
