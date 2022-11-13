@@ -105,10 +105,6 @@ function expirationEntryChecker(date) {
 
 //Front end Jquery Funcionts
 
-// function notFoundError(){
-//     $('body').append($('h1'));
-//     $('h1').html('ERROR')
-// }
 
 
 
