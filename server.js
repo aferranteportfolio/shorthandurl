@@ -13,7 +13,7 @@ const jsonParser = bodyParser.json()
 
 
 import {  randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker } from './program/functionality.js'
-import { urlDataBase } from './program/database.js'
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

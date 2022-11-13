@@ -1,5 +1,4 @@
 import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from '/functionality.js'
-import { urlDataBase } from '/database.js'
 
 $('button').on('click', ()=> {
     // select the input element and get its value
