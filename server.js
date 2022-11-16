@@ -1,8 +1,6 @@
-import  express  from 'express'
+import express from 'express'
 import path from 'path'
-import { json } from 'stream/consumers'
 import bodyParser from 'body-parser'
-import jQuery from 'jquery'
 
 const app = express()
 const PORT = 8943
@@ -10,22 +8,31 @@ const __dirname = path.resolve()
 const jsonParser = bodyParser.json()
 
 
-
-
-import {  randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator, urlGetAPI, urlGetChecker } from './program/functionality.js'
-
+import { urlGetChecker, urlPostAPI, expirationEntryChecker } from './backend/backendfunctions.js'
+import { protocolMender } from './program/functionality.js'
+import { urlDataBase } from './database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-app.use('urlDataBase', express.static(__dirname + './program/urlDataBase.js'))
+app.use('urlDataBase', express.static(__dirname + './urlDataBase.js'))
 
 app.use(express.static(path.join(__dirname, "program")))
 
 
+function postAddApi(longUrlPosted) {
+    {
+        let inMemoryLongUrl = protocolMender(longUrlPosted)
+        expirationEntryChecker()
+        return urlPostAPI(inMemoryLongUrl)
+        
+    }
+}
+
+
 function jsonData(req) {
     let jsonObjectCreator = {
-        longUrl : req.body.longUrl
+        longUrl: req.body.longUrl
     }
     return jsonObjectCreator
 }
@@ -34,28 +41,40 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, '/program/index.html'))
 })
 
+app.post('/postUrl', (req, res) => {
+    let longUrl = req.body.innerHtml
+    if (longUrl === '') {
+        return res.sendStatus(422)
+    } else {
+    let newEntry = postAddApi(longUrl)
+    console.log(urlDataBase)
+    res.send(newEntry)
+    }
+    
+})
 
-app.get('/shortUrl/:id', function(req, res){
+
+app.get('/shortUrl/:id', function (req, res) {
     const id = req.params.id;
-    urlGetChecker(id, res)    
-  });
+    res.redirect(urlGetChecker(id))
+});
 
 
-app.put('/shorten', (req, res)=>{
+app.put('/shorten', (req, res) => {
     let jsonRecived = jsonData(req)
     let result = urlPostAPI(jsonRecived)
-    if (result === true){return res.sendStatus(201)}
-    else return res.send(result)
+    if (result === true) { return res.sendStatus(201) }
+    else return res.send('HeaderTestMessage')
 })
 
-app.get('/HeMan', (req,res)=>{
-    
-    res.sendFile( __dirname + '/program/giphy.webp')
+app.get('/HeMan', (req, res) => {
+
+    res.sendFile(__dirname + '/program/giphy.webp')
 })
 
-app.get('/I_DO_NOT_EXIST', (req,res)=>{
-    
-    res.sendFile( __dirname + '/program/error404.webp')
+app.get('/I_DO_NOT_EXIST', (req, res) => {
+
+    res.sendFile(__dirname + '/program/error404.webp')
 })
 
 // - Frontend will display a single input box, the placeholder is 'Insert your long url here...'

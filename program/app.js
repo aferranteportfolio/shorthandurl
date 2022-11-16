@@ -1,28 +1,31 @@
-import { randomNumbersConcatenation, randomNumberSlicer, getRandom, protocolVerification, protocolMender, getUrl, addEntry, expirationEntryChecker, urlPostAPI, urlPostVerificator} from '/functionality.js'
+let counter = 0
 
 $('button').on('click', ()=> {
-    // select the input element and get its value
-    let inMemoryLongUrl = protocolMender(getUrl())
-    urlPostAPI(inMemoryLongUrl)
-    expirationEntryChecker()
-    let string = urlPostAPI(inMemoryLongUrl)
-    shortEndUrlFrontEnd(string.replaceAll('"', ''))
+    let innerHtml = $('input').val()
+    $.post('/postUrl', { innerHtml }).done(function(data, textStatus,status ){
+        console.log(data)
+        if(data.shortened){shortEndUrlFrontEnd(data.shortened)}
+        
+    }).fail(function(status){
+        alert('Input box is empty, please add a URL')
+    })
+    // .catch( function(xhr, textStatus, errorThrown) {
+    //         return alert('Input box is empty!')
+    //   })
 })
 
 
-
 function shortEndUrlFrontEnd(testDiplsayText){
-    let h1 = '<h1>'
+    debugger
+    counter += 1
+    let h1 = $('<h1>')
+    h1.addClass(`item${counter}`)
     $('body').append(h1)
-    $('h1').html(`This is your shortened URL = http://localhost:8943/${testDiplsayText}`)
+    $(`.item${counter}`).text(`This is your shortened URL = http://localhost:8943/shortUrl/${testDiplsayText}`)
+    // 
+    // $('.newItem').removeClass()      `item${counter}`
 }
 
-
-
-
-
-
-/////// INTERNAL API
 
 
 
