@@ -9,16 +9,16 @@ User inserts the a long url in the input: https://www.youtube.com/watch?v=SlYcnG
 
 App returns the shortened url: http://localhost:8943/Asde84
 
-When a user navigates to http://localhost:8943/AsdF84 it will be redirected to https://www.youtube.com/watch?v=SlYcnGW0NEg&list=RDSlYcnGW0NEg&start_radio=1&ab_channel=TitoSakuraba
+<!-- When a user navigates to http://localhost:8943/AsdF84 it will be redirected to https://www.youtube.com/watch?v=SlYcnGW0NEg&list=RDSlYcnGW0NEg&start_radio=1&ab_channel=TitoSakuraba
 If a user navigates to http://localhost:8943/I_DO_NOT_EXIST then the user will be presented with a clear not found message
-If a user navigates to http://localhost:8943/HeMan then the user will be presented with a HeMan image, one from https://giphy.com/explore/he-man-and-the-masters-of-the-universe
+If a user navigates to http://localhost:8943/HeMan then the user will be presented with a HeMan image, one from https://giphy.com/explore/he-man-and-the-masters-of-the-universe -->
 
 Functional requirements:
 <!-- - The input must only accept valid urls -->
 <!-- - The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds -->
 <!-- - The output or shortened url, will be a random generated base64 encoded string -->
 <!-- - The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds -->
-- The not found page, must be shown if the user attempts to access an unknown/expired shortened url <===== 
+<!-- - The not found page, must be shown if the user attempts to access an unknown/expired shortened url <=====  -->
 
 
 Technical requirements divided:
