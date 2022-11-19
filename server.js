@@ -58,6 +58,11 @@ app.get('/shortUrl/:id', function (req, res) {
     res.redirect(urlGetChecker(id))
 });
 
+app.get('/:id', function (req, res) {
+    const id = req.params.id;
+    res.redirect(urlGetChecker(id))
+});
+
 
 app.put('/shorten', (req, res) => {
     let jsonRecived = jsonData(req)

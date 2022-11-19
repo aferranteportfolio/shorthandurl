@@ -15,9 +15,9 @@ If a user navigates to http://localhost:8943/HeMan then the user will be present
 
 Functional requirements:
 <!-- - The input must only accept valid urls -->
-- The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds
-- The output or shortened url, will be a random generated base64 encoded string
-- The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds
+<!-- - The input will return the same shortened url if submitted/accessed multiple times at least once during the past 30 seconds -->
+<!-- - The output or shortened url, will be a random generated base64 encoded string -->
+<!-- - The output or shortened url, must always redirect to the same website if generated or accessed during the past 30 seconds -->
 - The not found page, must be shown if the user attempts to access an unknown/expired shortened url
 
 
