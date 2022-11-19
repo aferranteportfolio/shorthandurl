@@ -40,8 +40,7 @@ function urlGetChecker(shortUrlQueryReq) {
     let longUrlAssigned = urlGetAPI(shortUrlQueryReq)
     if (longUrlAssigned) {
         return longUrlAssigned
-    } return '/home'
-
+    } return '/notFound'
 }
 
 function urlPostVerificator(jsonBodyLongUrlObjectKey) {

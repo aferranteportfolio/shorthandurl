@@ -10,14 +10,13 @@ const jsonParser = bodyParser.json()
 
 import { urlGetChecker, urlPostAPI, expirationEntryChecker } from './backend/backendfunctions.js'
 import { protocolMender } from './program/functionality.js'
-import { urlDataBase } from './database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use('urlDataBase', express.static(__dirname + './urlDataBase.js'))
 
-app.use(express.static(path.join(__dirname, "program")))
+app.use(express.static(path.join(__dirname, "/program")))
 
 
 function postAddApi(longUrlPosted) {
@@ -58,10 +57,17 @@ app.get('/shortUrl/:id', function (req, res) {
     res.redirect(urlGetChecker(id))
 });
 
+app.get('/notfound', function (req, res) {
+    res.sendFile(path.join(__dirname, '/program/notFoundPage.html'))
+});
+
+
 app.get('/:id', function (req, res) {
     const id = req.params.id;
     res.redirect(urlGetChecker(id))
 });
+
+
 
 
 app.put('/shorten', (req, res) => {

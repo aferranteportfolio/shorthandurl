@@ -7,6 +7,10 @@ let urlDataBase = {
     secondLongUrl: {
         shortened: "<SHORTENED URL VALUE>",
         lastAccessedAt: 1667930868300
+    },
+    'http://localhost:8943/notfound': {
+        shortened: "notfound",
+        lastAccessedAt: 1667930868332222222
     }
 }
 
