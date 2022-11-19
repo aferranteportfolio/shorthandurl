@@ -1,5 +1,6 @@
 
 /// Functions below are responsable for newEntrys into the DB
+
 function getRandom() {
     let randomStringNumber = Math.random().toString(36)
     return randomStringNumber

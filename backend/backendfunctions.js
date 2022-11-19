@@ -1,20 +1,19 @@
 import { urlDataBase } from "../database.js";
 
-import {randomNumbersConcatenation} from '../program/functionality.js'
+import { randomNumbersConcatenation } from '../program/functionality.js'
 
 
-console.log(urlDataBase)
+
 
 // ----------------------------------- BACK END API FUNCTIONS -------------------------------
 
 function addEntry(longUrl) {
-    let entry = {
-        "shortened": randomNumbersConcatenation(),
-        "lastAccessedAt": Date.now()
+        let entry = {
+            "shortened": randomNumbersConcatenation(),
+            "lastAccessedAt": Date.now()
+        }
+        return urlDataBase[longUrl] = entry
     }
-   
-    return urlDataBase[longUrl] = entry
-}
 
 function urlPostAPI(jsonBodyLongUrlObjectKey) {
     if (urlPostVerificator(jsonBodyLongUrlObjectKey)) {
@@ -31,7 +30,7 @@ function urlGetAPI(shortUrlQueryReq) {
             const element = urlDataBase[key];
             if (element.shortened === shortUrlQueryReq) {
                 element.lastAccessedAt = Date.now()
-                return  key
+                return key
             }
         }
     }
@@ -42,7 +41,7 @@ function urlGetChecker(shortUrlQueryReq) {
     if (longUrlAssigned) {
         return longUrlAssigned
     } return '/home'
-    
+
 }
 
 function urlPostVerificator(jsonBodyLongUrlObjectKey) {
@@ -62,4 +61,4 @@ function expirationEntryChecker(date) {
     }
 }
 
-export {expirationEntryChecker, urlPostVerificator, urlGetChecker, urlGetAPI, urlPostAPI, addEntry}
+export { expirationEntryChecker, urlPostVerificator, urlGetChecker, urlGetAPI, urlPostAPI, addEntry }

@@ -46,8 +46,7 @@ app.post('/postUrl', (req, res) => {
     if (longUrl === '') {
         return res.sendStatus(422)
     } else {
-    let newEntry = postAddApi(longUrl)
-    console.log(urlDataBase)
+    let newEntry = urlPostAPI(longUrl)
     res.send(newEntry)
     }
     
