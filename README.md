@@ -22,8 +22,8 @@ Functional requirements:
 
 
 Technical requirements divided:
-- Must have AT LEAST 10 commits, as a minimum, each corresponding to the requirement specified below
-- Frontend will display a single input box, the placeholder is 'Insert your long url here...'
+<!-- - Must have AT LEAST 10 commits, as a minimum, each corresponding to the requirement specified below -->
+<!-- - Frontend will display a single input box, the placeholder is 'Insert your long url here...' -->
 - Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text
 - Frontend will use bootstrap
 - Frontend will perform http requests with JQuery, NO VANILLA JS
