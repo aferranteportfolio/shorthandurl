@@ -24,11 +24,11 @@ Functional requirements:
 Technical requirements divided:
 <!-- - Must have AT LEAST 10 commits, as a minimum, each corresponding to the requirement specified below -->
 <!-- - Frontend will display a single input box, the placeholder is 'Insert your long url here...' -->
-- Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text
+<!-- - Frontend will display a green button with text 'Shorten!', the button will have a bootstrap glyphicon to the right side of the text
 - Frontend will use bootstrap
 - Frontend will perform http requests with JQuery, NO VANILLA JS
-- Frontend when shorten button is clicked, it will perform a PUT request to the /shorten endpoint and display the shortened url returned from the backend
-
+- Frontend when shorten button is clicked, it will perform a PUT request to the /shorten endpoint and display the shortened url returned from the backend -->
+<!-- 
 - Backend will use expressjs
 - Backend will listen on port 8943
 - Backend will store all urls in an in-memory map NO EXTERNAL DATABASE/NODE MODULES/ETC
@@ -36,19 +36,19 @@ Technical requirements divided:
   { 
   "<LONG URL KEY>": { "shortened": "<SHORTENED URL VALUE>, "lastAccessedAt": "<TIME URL LAST ACCESSED>" },
   "<LONG URL KEY 2>": { "shortened": "<SHORTENED URL VALUE 2>, "lastAccessedAt": "<TIME URL LAST ACCESSED>" },
-  ... }
-- Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
+  ... } -->
+<!-- - Backend will expose a PUT /shorten endpoint where the json body is { "longUrl": "<LONG URL FROM INPUT BOX>" }
   - 1.- Check if long url exists in-memory map by doing the following:
     - a.- If exist, return <SHORTENED URL VALUE> and update lastAccessedAt with current time 
     - b.- Else, create a new record:
       - I.- <SHORTENED URL VALUE> is random 6-letter base64 enconded string
       - II.- lastAccessedAt is the current timestamp
       - III.- <LONG URL KEY> is the long url supplied as input to the endpoint
-    - c.- Scan all entries in the in-memory map and delete the entries that are more than 30 seconds old
+    - c.- Scan all entries in the in-memory map and delete the entries that are more than 30 seconds old -->
 
-- Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
+<!-- - Backend will expose a GET /<SHORTENED URL> endpoint, when accessed it will perform a lookup on the in-memory database
   - 1.- Check if shortened version exists
     - a.- If exists, return a moved permantently http code (google it up) to the long url, it must redirect the browser. It must also refresh lastAccessedAt with the current time
-    - b.- Else, will return a not found http code (also google it up), it must show a clear not found error
+    - b.- Else, will return a not found http code (also google it up), it must show a clear not found error -->
 
-- Backend will expose a GET /HeMan endpoint, when accessed it will return a HeMan image, any image from https://giphy.com/explore/he-man-and-the-masters-of-the-universe
+<!-- - Backend will expose a GET /HeMan endpoint, when accessed it will return a HeMan image, any image from https://giphy.com/explore/he-man-and-the-masters-of-the-universe -->
