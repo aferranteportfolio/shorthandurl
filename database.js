@@ -4,9 +4,9 @@ let urlDataBase = {
         shortened: "AsdF84",
         lastAccessedAt: 1667930868332222222
     },
-    secondLongUrl: {
-        shortened: "<SHORTENED URL VALUE>",
-        lastAccessedAt: 1667930868300
+    'http://localhost:8943/HeMan': {
+        shortened: "heMan",
+        lastAccessedAt: 1667930868332222222
     },
     'http://localhost:8943/notfound': {
         shortened: "notfound",

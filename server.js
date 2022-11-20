@@ -63,6 +63,9 @@ app.get('/notfound', function (req, res) {
     res.sendFile(path.join(__dirname, '/program/notFoundPage.html'))
 });
 
+app.get('/HeMan', (req, res) => {
+    res.sendFile(__dirname + '/program/giphy.webp')
+})
 
 app.get('/:id', function (req, res) {
     const id = req.params.id;
@@ -79,10 +82,7 @@ app.put('/shorten', (req, res) => {
     else return res.send('HeaderTestMessage')
 })
 
-app.get('/HeMan', (req, res) => {
 
-    res.sendFile(__dirname + '/program/giphy.webp')
-})
 
 app.get('/I_DO_NOT_EXIST', (req, res) => {
 

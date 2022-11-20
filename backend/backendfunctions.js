@@ -52,7 +52,6 @@ function urlPostVerificator(jsonBodyLongUrlObjectKey) {
     }
 }
 function expirationEntryChecker(date) {
-    console.log('exp checker call')
     for (const key in urlDataBase) {
         if (Object.hasOwnProperty.call(urlDataBase, key)) {
             const element = urlDataBase[key];
