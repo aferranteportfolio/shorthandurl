@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { urlDataBase } from "../database.js";
 
 import { randomNumbersConcatenation } from '../program/functionality.js'
@@ -19,10 +20,10 @@ function urlPostAPI(jsonBodyLongUrlObjectKey) {
     if (urlPostVerificator(jsonBodyLongUrlObjectKey)) {
         return JSON.stringify(urlDataBase[jsonBodyLongUrlObjectKey].shortened)
     } else {
-
+        console.log('added new entry')
         return addEntry(jsonBodyLongUrlObjectKey)
     }
-}
+    }
 
 function urlGetAPI(shortUrlQueryReq) {
     for (const key in urlDataBase) {
@@ -37,6 +38,7 @@ function urlGetAPI(shortUrlQueryReq) {
 }
 
 function urlGetChecker(shortUrlQueryReq) {
+    expirationEntryChecker()
     let longUrlAssigned = urlGetAPI(shortUrlQueryReq)
     if (longUrlAssigned) {
         return longUrlAssigned
@@ -50,10 +52,12 @@ function urlPostVerificator(jsonBodyLongUrlObjectKey) {
     }
 }
 function expirationEntryChecker(date) {
+    console.log('exp checker call')
     for (const key in urlDataBase) {
         if (Object.hasOwnProperty.call(urlDataBase, key)) {
             const element = urlDataBase[key];
             if (Date.now() - element.lastAccessedAt > 30000) {
+                
                 delete urlDataBase[key]
             }
         }

@@ -10,6 +10,7 @@ const jsonParser = bodyParser.json()
 
 import { urlGetChecker, urlPostAPI, expirationEntryChecker } from './backend/backendfunctions.js'
 import { protocolMender } from './program/functionality.js'
+import { urlDataBase } from './database.js'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -45,7 +46,8 @@ app.post('/postUrl', (req, res) => {
     if (longUrl === '') {
         return res.sendStatus(422)
     } else {
-    let newEntry = urlPostAPI(longUrl)
+    let newEntry = postAddApi(longUrl)
+    console.log(urlDataBase)
     res.send(newEntry)
     }
     
